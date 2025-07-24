@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   resources :books
-  resources :users, only: [:new, :create, :show]
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :users, only: [ :new, :create, :show ]
+  resources :sessions, only: [ :new, :create ]
 
-  get 'login', to: 'sessions#new'
-  delete 'logout', to: 'sessions#destroy'
-  get 'signup', to: 'users#new'
+  get "login", to: "sessions#new"
+  delete "logout", to: "sessions#destroy"
+  get "signup", to: "users#new"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

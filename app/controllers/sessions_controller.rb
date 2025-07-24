@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [ :destroy ]
+
   def new
     # Login form - no logic needed, just renders the form
   end
