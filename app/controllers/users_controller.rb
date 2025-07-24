@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @user_books = @user.books.includes(:user).order(created_at: :desc)
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: "User not found."
   end
