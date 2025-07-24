@@ -1,0 +1,43 @@
+---
+# Ruby LSP configuration
+enabledFeatures:
+  - documentSymbols
+  - foldingRanges
+  - selectionRanges
+  - semanticHighlighting
+  - formatting
+  - onTypeFormatting
+  - diagnostics
+  - codeActions
+  - completion
+  - hover
+  - signatureHelp
+  - definition
+  - typeDefinition
+  - implementation
+  - references
+  - documentHighlight
+  - workspaceSymbol
+
+# Formatter configuration
+formatter: auto
+
+# Index configuration
+indexing:
+  includedPatterns:
+    - "**/*.rb"
+    - "**/*.rake"
+  excludedPatterns:
+    - "tmp/**/*"
+    - "log/**/*"
+    - "vendor/**/*"
+    - "node_modules/**/*"
+    - ".git/**/*"
+    - "coverage/**/*"
+
+# Linting
+linters:
+  rubocop: true
+
+# Experimental features
+experimentalFeaturesEnabled: false
