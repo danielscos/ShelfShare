@@ -94,23 +94,23 @@
           <div style="color: #666; font-size: 14px;">Total Books</div>
         </div>
         <div>
-          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.available.count %></div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @available_books_count %></div>
           <div style="color: #666; font-size: 14px;">Available</div>
         </div>
         <div>
-          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.where(available: false).count %></div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @unavailable_books_count %></div>
           <div style="color: #666; font-size: 14px;">Unavailable</div>
         </div>
         <div>
-          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.where('created_at > ?', 1.week.ago).count %></div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books_this_week %></div>
           <div style="color: #666; font-size: 14px;">Added This Week</div>
         </div>
         <div>
-          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.group(:condition).count.keys.count %></div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @unique_conditions %></div>
           <div style="color: #666; font-size: 14px;">Conditions</div>
         </div>
         <div>
-          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.joins(:user).group('users.id').count.keys.count %></div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @unique_owners %></div>
           <div style="color: #666; font-size: 14px;">Unique Owners</div>
         </div>
       </div>

@@ -18,5 +18,10 @@ class AdminController < ApplicationController
 
   def books
     @books = Book.includes(:user).order(created_at: :desc)
+    @books_this_week = Book.where("created_at > ?", 1.week.ago).count
+    @unique_conditions = Book.distinct.count(:condition)
+    @unique_owners = Book.distinct.count(:user_id)
+    @available_books_count = Book.available.count
+    @unavailable_books_count = Book.where(available: false).count
   end
 end
