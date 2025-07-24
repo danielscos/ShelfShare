@@ -16,7 +16,31 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @user_books = @user.books.includes(:user).order(created_at: :desc)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: "User not found."
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    unless @current_user == @user || admin?
+      redirect_to user_path(@user), alert: "Not authorized to edit this profile."
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: "User not found."
+  end
+
+  def update
+    @user = User.find(params[:id])
+    unless @current_user == @user || admin?
+      redirect_to user_path(@user), alert: "Not authorized to edit this profile."
+      return
+    end
+
+    if @user.update(user_params)
+      redirect_to @user, notice: "Profile updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: "User not found."
   end
@@ -24,6 +48,18 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :location)
+    permitted_params = [ :name, :email, :location ]
+
+    # Allow password updates only if provided
+    if params[:user][:password].present?
+      permitted_params += [ :password, :password_confirmation ]
+    end
+
+    # Allow admin field only for admins
+    if admin?
+      permitted_params += [ :admin ]
+    end
+
+    params.require(:user).permit(permitted_params)
   end
 end

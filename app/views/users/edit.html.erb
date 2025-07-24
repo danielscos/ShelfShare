@@ -1,0 +1,69 @@
+<div style="max-width: 500px; margin: 0 auto; padding: 20px;">
+  <h1 style="color: #333; margin-bottom: 30px;">✏️ Edit Profile</h1>
+
+  <%= form_with model: @user, local: true, html: { style: "background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" } do |form| %>
+    <% if @user.errors.any? %>
+      <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+        <h4 style="margin: 0 0 10px 0;"><%= pluralize(@user.errors.count, "error") %> prohibited this profile from being updated:</h4>
+        <ul style="margin: 0; padding-left: 20px;">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :name, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.text_field :name, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :email, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.email_field :email, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :location, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.text_field :location, required: true, placeholder: "e.g., New York, NY", style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="background: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+      <h4 style="margin: 0 0 10px 0; color: #495057;">Change Password (Optional)</h4>
+      <p style="margin: 0 0 15px 0; color: #6c757d; font-size: 14px;">Leave blank to keep current password</p>
+      
+      <div style="margin-bottom: 15px;">
+        <%= form.label :password, "New Password", style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+        <%= form.password_field :password, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+      </div>
+
+      <div style="margin-bottom: 0;">
+        <%= form.label :password_confirmation, "Confirm New Password", style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+        <%= form.password_field :password_confirmation, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+      </div>
+    </div>
+
+    <% if admin? && @current_user != @user %>
+      <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #ffeaa7;">
+        <h4 style="margin: 0 0 10px 0; color: #856404;">👑 Admin Controls</h4>
+        <label style="display: flex; align-items: center; cursor: pointer;">
+          <%= form.check_box :admin, { style: "margin-right: 8px;" } %>
+          <span style="font-weight: bold; color: #856404;">Grant Admin Privileges</span>
+        </label>
+        <p style="margin: 5px 0 0 0; color: #856404; font-size: 12px;">⚠️ Use with caution - this gives full system access</p>
+      </div>
+    <% end %>
+
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+      <%= form.submit "Update Profile", style: "background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;" %>
+      <a href="/users/<%= @user.id %>" style="background: #6c757d; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-size: 16px;">Cancel</a>
+    </div>
+
+    <% if @current_user == @user %>
+      <div style="text-align: center; border-top: 1px solid #dee2e6; padding-top: 20px;">
+        <p style="margin: 0 0 10px 0; color: #6c757d; font-size: 14px;">Member since <%= @user.created_at.strftime("%B %Y") %></p>
+        <p style="margin: 0; color: #6c757d; font-size: 14px;">You have shared <%= @user.books.count %> books with the community</p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

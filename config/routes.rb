@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # Main application routes
   resources :books
-  resources :users, only: [ :new, :create, :show ]
+  resources :users, only: [ :new, :create, :show, :edit, :update ]
   resources :sessions, only: [ :new, :create ]
 
   # Authentication routes
