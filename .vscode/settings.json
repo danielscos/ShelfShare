@@ -1,0 +1,56 @@
+{
+  "ruby.lsp": {
+    "enabledFeatures": [
+      "documentSymbols",
+      "foldingRanges",
+      "selectionRanges",
+      "completion",
+      "hover",
+      "definition",
+      "references",
+      "diagnostics"
+    ],
+    "disabledFeatures": [
+      "formatting",
+      "onTypeFormatting"
+    ]
+  },
+  "[erb]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+  "[html.erb]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "files.associations": {
+    "*.html.erb": "erb",
+    "*.erb": "erb"
+  },
+  "ruby.lsp.indexing": {
+    "includedPatterns": [
+      "**/*.rb",
+      "**/*.rake"
+    ],
+    "excludedPatterns": [
+      "tmp/**/*",
+      "log/**/*",
+      "vendor/**/*",
+      "node_modules/**/*",
+      ".git/**/*",
+      "coverage/**/*",
+      ".ruby-lsp/**/*",
+      "**/*.erb",
+      "**/*.html.erb",
+      "app/views/**/*"
+    ]
+  }
+}

@@ -54,6 +54,12 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Ruby LSP and formatting
+  gem "ruby-lsp", "~> 0.22.0"
+  gem "ruby-lsp-rails"
+  gem "syntax_tree"
+  gem "erb_lint", require: false
 end
 
 group :test do
@@ -61,5 +67,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "ruby-lsp", "~> 0.26.1", group: :development

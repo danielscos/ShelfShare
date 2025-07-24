@@ -1,0 +1,50 @@
+---
+# ERB Lint configuration
+# See https://github.com/Shopify/erb-lint for more information
+
+linters:
+  # Require closing ERB tags
+  ClosingErbTagIndent:
+    enabled: true
+
+  # Ensure proper indentation
+  ErbSafety:
+    enabled: true
+
+  # No JavaScript in ERB templates
+  NoJavaScriptTagHelper:
+    enabled: true
+
+  # Use Rails tag helpers instead of raw HTML
+  ParserErrors:
+    enabled: true
+
+  # Enforce proper HTML structure
+  RightTrim:
+    enabled: true
+
+  # Self-closing tag format
+  SelfClosingTag:
+    enabled: true
+
+  # Proper spacing around ERB tags
+  SpaceAroundErbTag:
+    enabled: true
+
+  # Trailing whitespace
+  TrailingWhitespace:
+    enabled: true
+
+  # HTML5 compliance
+  AllowedScriptType:
+    enabled: true
+
+exclude:
+  - 'node_modules/**/*'
+  - 'vendor/**/*'
+  - 'tmp/**/*'
+  - 'log/**/*'
+  - '.git/**/*'
+
+require:
+  - erb_lint

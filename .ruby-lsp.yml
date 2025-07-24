@@ -1,32 +1,27 @@
 ---
-# Ruby LSP configuration
+# Ruby LSP configuration - fixed indexing while avoiding ERB formatting issues
 enabledFeatures:
   - documentSymbols
   - foldingRanges
   - selectionRanges
-  - semanticHighlighting
-  - formatting
-  - onTypeFormatting
-  - diagnostics
-  - codeActions
   - completion
   - hover
-  - signatureHelp
   - definition
-  - typeDefinition
-  - implementation
   - references
-  - documentHighlight
-  - workspaceSymbol
+  - diagnostics
 
-# Formatter configuration
-formatter: auto
+# Disable only formatting features to avoid ERB issues
+disabledFeatures:
+  - formatting
+  - onTypeFormatting
 
-# Index configuration
+# Index configuration - include Ruby files but exclude problematic patterns
 indexing:
   includedPatterns:
     - "**/*.rb"
     - "**/*.rake"
+    - "**/Rakefile"
+    - "**/Gemfile"
   excludedPatterns:
     - "tmp/**/*"
     - "log/**/*"
@@ -34,10 +29,7 @@ indexing:
     - "node_modules/**/*"
     - ".git/**/*"
     - "coverage/**/*"
+    - ".ruby-lsp/**/*"
 
-# Linting
-linters:
-  rubocop: true
-
-# Experimental features
+# Disable experimental features
 experimentalFeaturesEnabled: false
