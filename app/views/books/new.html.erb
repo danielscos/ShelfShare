@@ -1,0 +1,53 @@
+<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h1 style="color: #333; margin-bottom: 30px;">📖 Add New Book</h1>
+
+  <%= form_with model: @book, local: true, html: { style: "background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" } do |form| %>
+    <% if @book.errors.any? %>
+      <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+        <h4 style="margin: 0 0 10px 0;"><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h4>
+        <ul style="margin: 0; padding-left: 20px;">
+          <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :title, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.text_field :title, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :author, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.text_field :author, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :description, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.text_area :description, rows: 4, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; resize: vertical;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :condition, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.select :condition, ['New', 'Like New', 'Good', 'Fair', 'Poor'], { prompt: 'Select condition' }, { required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" } %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :user_id, "Owner", style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.select :user_id, options_from_collection_for_select(User.all, :id, :name), { prompt: 'Select owner' }, { required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" } %>
+    </div>
+
+    <div style="margin-bottom: 30px;">
+      <label style="display: flex; align-items: center; cursor: pointer;">
+        <%= form.check_box :available, { checked: true }, { style: "margin-right: 8px;" } %>
+        <span style="font-weight: bold; color: #333;">Available for lending</span>
+      </label>
+    </div>
+
+    <div style="display: flex; gap: 10px;">
+      <%= form.submit "Create Book", style: "background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;" %>
+      <a href="/books" style="background: #6c757d; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-size: 16px;">Cancel</a>
+    </div>
+  <% end %>
+</div>
