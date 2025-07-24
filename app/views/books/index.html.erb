@@ -24,9 +24,12 @@
           </p>
           <div style="margin-top: 15px; display: flex; gap: 5px;">
             <a href="/books/<%= book.id %>" style="background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">View</a>
-            <% if logged_in? && @current_user == book.user %>
+            <% if logged_in? && (@current_user == book.user || admin?) %>
               <a href="/books/<%= book.id %>/edit" style="background: #ffc107; color: #212529; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">Edit</a>
               <%= button_to "Delete", book_path(book), method: :delete, data: { confirm: "Are you sure?" }, style: "background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 3px; font-size: 12px; cursor: pointer;" %>
+              <% if admin? && @current_user != book.user %>
+                <span style="background: #6f42c1; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">ADMIN</span>
+              <% end %>
             <% end %>
           </div>
         </div>

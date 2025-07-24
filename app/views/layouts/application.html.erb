@@ -29,11 +29,19 @@
           <%= link_to "Browse Books", books_path, style: "color: white; text-decoration: none; margin-left: 20px;" %>
           <% if logged_in? %>
             <%= link_to "Add Book", new_book_path, style: "color: white; text-decoration: none; margin-left: 20px;" %>
+            <% if admin? %>
+              <%= link_to "👑 Admin", admin_dashboard_path, style: "color: white; text-decoration: none; margin-left: 20px; background: #6f42c1; padding: 5px 10px; border-radius: 3px;" %>
+            <% end %>
           <% end %>
         </div>
         <div>
           <% if logged_in? %>
-            <span style="color: white; margin-right: 15px;">Welcome, <%= @current_user.name %>!</span>
+            <span style="color: white; margin-right: 15px;">
+              Welcome, <%= @current_user.name %>!
+              <% if admin? %>
+                <span style="background: #6f42c1; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;">👑 ADMIN</span>
+              <% end %>
+            </span>
             <%= link_to "My Profile", user_path(@current_user), style: "color: white; text-decoration: none; margin-right: 15px;" %>
             <%= button_to "Logout", logout_path, method: :delete, style: "background: none; border: none; color: white; text-decoration: none; cursor: pointer; padding: 0; font-size: inherit;" %>
           <% else %>

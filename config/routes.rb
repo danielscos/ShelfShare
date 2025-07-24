@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "admin/dashboard"
+  get "admin/users"
+  get "admin/books"
   resources :books
   resources :users, only: [ :new, :create, :show ]
   resources :sessions, only: [ :new, :create ]

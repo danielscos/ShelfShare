@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_action :require_login, except: [ :index, :show ]
   before_action :set_book, only: [ :show, :edit, :update, :destroy ]
-  before_action :require_owner, only: [ :edit, :update, :destroy ]
+  before_action :require_owner_or_admin, only: [ :edit, :update, :destroy ]
 
   def index
     @books = Book.includes(:user).all
@@ -48,8 +48,10 @@ class BooksController < ApplicationController
     redirect_to books_path, alert: "Book not found."
   end
 
-  def require_owner
-    redirect_to books_path, alert: "Not authorized." unless @book.user == @current_user
+  def require_owner_or_admin
+    unless @book.user == @current_user || admin?
+      redirect_to books_path, alert: "Not authorized."
+    end
   end
 
   def book_params

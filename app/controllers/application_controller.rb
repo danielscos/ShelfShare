@@ -18,5 +18,13 @@ class ApplicationController < ActionController::Base
     !!@current_user
   end
 
-  helper_method :current_user, :logged_in?
+  def admin?
+    logged_in? && @current_user.admin?
+  end
+
+  def require_admin
+    redirect_to root_path, alert: "Access denied. Admin privileges required." unless admin?
+  end
+
+  helper_method :current_user, :logged_in?, :admin?
 end
