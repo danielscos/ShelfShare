@@ -1,2 +1,129 @@
-<h1>Admin#books</h1>
-<p>Find me in app/views/admin/books.html.erb</p>
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h1 style="color: #333; margin: 0;">📚 Book Management</h1>
+    <div>
+      <a href="/admin/dashboard" style="background: #6c757d; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-right: 10px;">← Dashboard</a>
+      <a href="/admin/users" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Manage Users</a>
+    </div>
+  </div>
+
+  <div style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden;">
+    <div style="background: #f8f9fa; padding: 20px; border-bottom: 1px solid #dee2e6;">
+      <h3 style="margin: 0; color: #333;">All Books (<%= @books.count %>)</h3>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead style="background: #f8f9fa;">
+          <tr>
+            <th style="padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; color: #333; font-weight: bold;">ID</th>
+            <th style="padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; color: #333; font-weight: bold;">Title</th>
+            <th style="padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; color: #333; font-weight: bold;">Author</th>
+            <th style="padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; color: #333; font-weight: bold;">Owner</th>
+            <th style="padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; color: #333; font-weight: bold;">Condition</th>
+            <th style="padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; color: #333; font-weight: bold;">Status</th>
+            <th style="padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; color: #333; font-weight: bold;">Added</th>
+            <th style="padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; color: #333; font-weight: bold;">Admin Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @books.each do |book| %>
+            <tr style="border-bottom: 1px solid #dee2e6;">
+              <td style="padding: 15px; color: #666;">#<%= book.id %></td>
+              <td style="padding: 15px;">
+                <strong style="color: #333;"><%= book.title %></strong>
+                <% if book.description.present? %>
+                  <br><small style="color: #666;"><%= truncate(book.description, length: 50) %></small>
+                <% end %>
+              </td>
+              <td style="padding: 15px; color: #666;"><%= book.author %></td>
+              <td style="padding: 15px;">
+                <a href="/users/<%= book.user.id %>" style="text-decoration: none; color: #007bff;">
+                  <%= book.user.name %>
+                </a>
+                <% if book.user.admin? %>
+                  <span style="background: #6f42c1; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;">👑</span>
+                <% end %>
+                <br><small style="color: #666;"><%= book.user.location %></small>
+              </td>
+              <td style="padding: 15px;">
+                <span style="padding: 4px 8px; border-radius: 4px; font-size: 12px; background: #e9ecef; color: #495057;">
+                  <%= book.condition %>
+                </span>
+              </td>
+              <td style="padding: 15px;">
+                <span style="padding: 4px 8px; border-radius: 4px; font-size: 12px; <%= book.available? ? 'background: #d4edda; color: #155724;' : 'background: #f8d7da; color: #721c24;' %>">
+                  <%= book.available? ? '✅ Available' : '❌ Unavailable' %>
+                </span>
+              </td>
+              <td style="padding: 15px; color: #666;">
+                <%= book.created_at.strftime("%m/%d/%Y") %>
+                <br><small style="color: #999;"><%= time_ago_in_words(book.created_at) %> ago</small>
+              </td>
+              <td style="padding: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                  <div style="display: flex; gap: 5px;">
+                    <a href="/books/<%= book.id %>" style="background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">View</a>
+                    <a href="/books/<%= book.id %>/edit" style="background: #ffc107; color: #212529; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">Edit</a>
+                  </div>
+                  <div>
+                    <%= button_to "🗑️ Delete", book_path(book), method: :delete, data: { confirm: "⚠️ ADMIN DELETE: Are you sure you want to permanently delete '#{book.title}' by #{book.author}?" }, style: "background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 3px; font-size: 12px; cursor: pointer; width: 100%;" %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @books.empty? %>
+      <div style="text-align: center; padding: 60px 20px;">
+        <h3 style="color: #666; margin: 0 0 15px 0;">No books found</h3>
+        <p style="color: #888; margin: 0;">The book database is empty.</p>
+      </div>
+    <% end %>
+  </div>
+
+  <div style="margin-top: 30px; text-align: center;">
+    <div style="background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107;">
+      <h4 style="margin: 0 0 10px 0; color: #856404;">📊 Book Statistics</h4>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+        <div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.count %></div>
+          <div style="color: #666; font-size: 14px;">Total Books</div>
+        </div>
+        <div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.available.count %></div>
+          <div style="color: #666; font-size: 14px;">Available</div>
+        </div>
+        <div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.where(available: false).count %></div>
+          <div style="color: #666; font-size: 14px;">Unavailable</div>
+        </div>
+        <div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.where('created_at > ?', 1.week.ago).count %></div>
+          <div style="color: #666; font-size: 14px;">Added This Week</div>
+        </div>
+        <div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.group(:condition).count.keys.count %></div>
+          <div style="color: #666; font-size: 14px;">Conditions</div>
+        </div>
+        <div>
+          <div style="font-size: 1.5em; font-weight: bold; color: #856404;"><%= @books.joins(:user).group('users.id').count.keys.count %></div>
+          <div style="color: #666; font-size: 14px;">Unique Owners</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px; text-align: center;">
+    <div style="background: #f8d7da; padding: 15px; border-radius: 8px; border-left: 4px solid #dc3545;">
+      <h5 style="margin: 0 0 5px 0; color: #721c24;">⚠️ Admin Warning</h5>
+      <p style="margin: 0; color: #721c24; font-size: 14px;">
+        As an admin, you have the power to edit and delete any book. Use these privileges responsibly.
+        Deleted books cannot be recovered.
+      </p>
+    </div>
+  </div>
+</div>

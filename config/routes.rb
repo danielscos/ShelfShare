@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
-  get "admin/dashboard"
-  get "admin/users"
-  get "admin/books"
+  # Main application routes
   resources :books
   resources :users, only: [ :new, :create, :show ]
   resources :sessions, only: [ :new, :create ]
 
+  # Authentication routes
   get "login", to: "sessions#new"
   delete "logout", to: "sessions#destroy"
   get "signup", to: "users#new"
+
+  # Admin routes (protected by admin authorization)
+  get "admin/dashboard"
+  get "admin/users"
+  get "admin/books"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
