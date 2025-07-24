@@ -1,2 +1,33 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<div style="max-width: 400px; margin: 0 auto; padding: 20px;">
+  <h1 style="color: #333; margin-bottom: 30px;">🔐 Login to ShelfShare</h1>
+
+  <%= form_with url: sessions_path, local: true, html: { style: "background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" } do |form| %>
+    <% if flash[:alert] %>
+      <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <!-- Email field -->
+    <div style="margin-bottom: 20px;">
+      <%= form.label :email, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.email_field :email, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <!-- Password field -->
+    <div style="margin-bottom: 20px;">
+      <%= form.label :password, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.password_field :password, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+
+    <div style="margin-bottom: 20px;">
+      <%= form.submit "Login", style: "background: #007bff; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; width: 100%;" %>
+    </div>
+
+    <div style="text-align: center;">
+      <p style="margin: 0; color: #666;">Don't have an account?</p>
+      <a href="/signup" style="color: #007bff; text-decoration: none; font-weight: bold;">Sign up here</a>
+    </div>
+  <% end %>
+</div>

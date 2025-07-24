@@ -22,6 +22,39 @@
   </head>
 
   <body>
+    <nav style="background: #333; padding: 15px; margin-bottom: 20px;">
+      <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <%= link_to "📚 ShelfShare", root_path, style: "color: white; text-decoration: none; font-size: 20px; font-weight: bold;" %>
+          <%= link_to "Browse Books", books_path, style: "color: white; text-decoration: none; margin-left: 20px;" %>
+          <% if logged_in? %>
+            <%= link_to "Add Book", new_book_path, style: "color: white; text-decoration: none; margin-left: 20px;" %>
+          <% end %>
+        </div>
+        <div>
+          <% if logged_in? %>
+            <span style="color: white; margin-right: 15px;">Welcome, <%= @current_user.name %>!</span>
+            <%= link_to "My Profile", user_path(@current_user), style: "color: white; text-decoration: none; margin-right: 15px;" %>
+            <%= link_to "Logout", logout_path, method: :delete, style: "color: white; text-decoration: none;" %>
+          <% else %>
+            <%= link_to "Login", login_path, style: "color: white; text-decoration: none; margin-right: 15px;" %>
+            <%= link_to "Sign Up", signup_path, style: "color: white; text-decoration: none;" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <% if notice %>
+      <div style="background: #d4edda; color: #155724; padding: 10px; margin: 0 20px 20px 20px; border-radius: 5px; border: 1px solid #c3e6cb;">
+        <%= notice %>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div style="background: #f8d7da; color: #721c24; padding: 10px; margin: 0 20px 20px 20px; border-radius: 5px; border: 1px solid #f5c6cb;">
+        <%= alert %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

@@ -1,2 +1,50 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<div style="max-width: 500px; margin: 0 auto; padding: 20px;">
+  <h1 style="color: #333; margin-bottom: 30px;">👤 Join ShelfShare</h1>
+
+  <%= form_with model: @user, local: true, html: { style: "background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" } do |form| %>
+    <% if @user.errors.any? %>
+      <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+        <h4 style="margin: 0 0 10px 0;"><%= pluralize(@user.errors.count, "error") %> prohibited this account from being created:</h4>
+        <ul style="margin: 0; padding-left: 20px;">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :name, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.text_field :name, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :email, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.email_field :email, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :location, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.text_field :location, required: true, placeholder: "e.g., New York, NY", style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :password, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.password_field :password, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 30px;">
+      <%= form.label :password_confirmation, "Confirm Password", style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
+      <%= form.password_field :password_confirmation, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.submit "Create Account", style: "background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; width: 100%;" %>
+    </div>
+
+    <div style="text-align: center;">
+      <p style="margin: 0; color: #666;">Already have an account?</p>
+      <a href="/login" style="color: #007bff; text-decoration: none; font-weight: bold;">Login here</a>
+    </div>
+  <% end %>
+</div>

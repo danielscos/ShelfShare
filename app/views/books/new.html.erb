@@ -33,10 +33,7 @@
       <%= form.select :condition, ['New', 'Like New', 'Good', 'Fair', 'Poor'], { prompt: 'Select condition' }, { required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" } %>
     </div>
 
-    <div style="margin-bottom: 20px;">
-      <%= form.label :user_id, "Owner", style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
-      <%= form.select :user_id, options_from_collection_for_select(User.all, :id, :name), { prompt: 'Select owner' }, { required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" } %>
-    </div>
+
 
     <div style="margin-bottom: 30px;">
       <label style="display: flex; align-items: center; cursor: pointer;">
