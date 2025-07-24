@@ -22,10 +22,12 @@
               <%= book.available? ? 'Available' : 'Not Available' %>
             </span>
           </p>
-          <div style="margin-top: 15px;">
-            <a href="/books/<%= book.id %>" style="background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px; margin-right: 5px;">View</a>
-            <a href="/books/<%= book.id %>/edit" style="background: #ffc107; color: #212529; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px; margin-right: 5px;">Edit</a>
-            <a href="/books/<%= book.id %>" data-method="delete" data-confirm="Are you sure?" style="background: #dc3545; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">Delete</a>
+          <div style="margin-top: 15px; display: flex; gap: 5px;">
+            <a href="/books/<%= book.id %>" style="background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">View</a>
+            <% if logged_in? && @current_user == book.user %>
+              <a href="/books/<%= book.id %>/edit" style="background: #ffc107; color: #212529; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">Edit</a>
+              <%= button_to "Delete", book_path(book), method: :delete, data: { confirm: "Are you sure?" }, style: "background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 3px; font-size: 12px; cursor: pointer;" %>
+            <% end %>
           </div>
         </div>
       <% end %>
