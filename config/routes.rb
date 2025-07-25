@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "admin/dashboard"
   get "admin/users"
   get "admin/books"
+  delete "admin/users/:id", to: "admin#delete_user", as: "admin_delete_user"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

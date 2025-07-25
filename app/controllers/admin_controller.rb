@@ -24,4 +24,21 @@ class AdminController < ApplicationController
     @available_books_count = Book.available.count
     @unavailable_books_count = Book.where(available: false).count
   end
+
+  def delete_user
+    @user = User.find(params[:id])
+
+    if @user == @current_user
+      redirect_to admin_users_path, alert: "You cannot delete your own account."
+      return
+    end
+
+    user_name = @user.name
+    user_books_count = @user.books.count
+
+    @user.destroy
+    redirect_to admin_users_path, notice: "User '#{user_name}' and their #{user_books_count} books have been deleted."
+  rescue ActiveRecord::RecordNotFound
+    redirect_to admin_users_path, alert: "User not found."
+  end
 end
