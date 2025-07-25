@@ -56,7 +56,7 @@ group :development do
   gem "web-console"
 
   # Ruby LSP and formatting
-  gem "ruby-lsp", "~> 0.22.0"
+  gem "ruby-lsp", "~> 0.26.1"
   gem "ruby-lsp-rails"
   gem "syntax_tree"
   gem "erb_lint", require: false
