@@ -4,7 +4,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
+    # Find user by checking both encrypted and plain email formats
+    user = User.all.find do |u|
+      u.real_email_for_owner == params[:email]
+    end
 
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id

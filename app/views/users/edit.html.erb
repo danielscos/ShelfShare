@@ -20,7 +20,7 @@
 
     <div style="margin-bottom: 20px;">
       <%= form.label :email, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
-      <%= form.email_field :email, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
+      <%= form.email_field :email, value: @user.real_email_for_owner, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
     </div>
 
     <div style="margin-bottom: 20px;">

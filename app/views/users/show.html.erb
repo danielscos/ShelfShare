@@ -5,7 +5,7 @@
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
       <div>
         <p style="margin-bottom: 10px;"><strong>Name:</strong> <%= @user.name %></p>
-        <p style="margin-bottom: 10px;"><strong>Email:</strong> <%= @current_user == @user ? @user.email : @user.masked_email %></p>
+        <p style="margin-bottom: 10px;"><strong>Email:</strong> <%= @current_user == @user ? @user.real_email_for_owner : @user.encrypted_email_display %></p>
         <p style="margin-bottom: 10px;"><strong>Location:</strong> <%= @user.location %></p>
       </div>
       <div>

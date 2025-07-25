@@ -32,7 +32,7 @@
               <span style="background: #6f42c1; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;">ADMIN</span>
             <% end %>
             <br>
-            <small style="color: #666;"><%= user.email %></small>
+            <small style="color: #666;"><%= user.encrypted_email_display %></small>
           </div>
           <small style="color: #999;"><%= user.created_at.strftime("%m/%d") %></small>
         </div>
@@ -80,7 +80,7 @@
     <div style="background: #d4edda; padding: 15px; border-radius: 8px; border-left: 4px solid #28a745;">
       <h5 style="margin: 0 0 5px 0; color: #155724;">🔒 Privacy Protection</h5>
       <p style="margin: 0; color: #155724; font-size: 14px;">
-        User emails are encrypted and masked. Even as admin, you can only see masked emails (e.g., j***e@g***l.com)
+        User emails are fully encrypted in the database. Even as admin, you can only see [ENCRYPTED] - no real email access.
       </p>
     </div>
   </div>
