@@ -1,5 +1,0 @@
-class AddEncryptedEmailToUsers < ActiveRecord::Migration[8.0]
-  def change
-    add_column :users, :encrypted_email, :text
-  end
-end
