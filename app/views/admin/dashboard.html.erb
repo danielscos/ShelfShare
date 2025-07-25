@@ -1,29 +1,29 @@
 <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(135deg, #6f42c1, #007bff); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
+  <div style="background: linear-gradient(135deg, #6f42c2, #000000); color: green; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
     <h1 style="margin: 0 0 10px 0; font-size: 2.5em;">👑 Admin Dashboard</h1>
     <p style="margin: 0; opacity: 0.9;">Welcome to the ShelfShare administration panel</p>
   </div>
 
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
-    <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid #007bff;">
-      <h3 style="margin: 0 0 10px 0; color: #333;">📊 Total Users</h3>
-      <div style="font-size: 2em; font-weight: bold; color: #007bff;"><%= @total_users %></div>
+    <div style="background: linear-gradient(135deg, #6f42c2, #188fb4); padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid #007bff;">
+      <h3 style="margin: 0 0 10px 0; color: #000000;">📊 Total Users</h3>
+      <div style="font-size: 2em; font-weight: bold; color: #000000;"><%= @total_users %></div>
     </div>
-    
-    <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid #28a745;">
-      <h3 style="margin: 0 0 10px 0; color: #333;">📚 Total Books</h3>
-      <div style="font-size: 2em; font-weight: bold; color: #28a745;"><%= @total_books %></div>
+
+    <div style="background: linear-gradient(135deg, #6f42c2, #188fb4); padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid #28a745;">
+      <h3 style="margin: 0 0 10px 0; color: #000000;">📚 Total Books</h3>
+      <div style="font-size: 2em; font-weight: bold; color: #000000;"><%= @total_books %></div>
     </div>
-    
-    <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid #ffc107;">
-      <h3 style="margin: 0 0 10px 0; color: #333;">✅ Available Books</h3>
-      <div style="font-size: 2em; font-weight: bold; color: #ffc107;"><%= @available_books %></div>
+
+    <div style="background: linear-gradient(135deg, #6f42c2, #188fb4); padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid #ffc107;">
+      <h3 style="margin: 0 0 10px 0; color: #000000;">✅ Available Books</h3>
+      <div style="font-size: 2em; font-weight: bold; color: #000000;"><%= @available_books %></div>
     </div>
   </div>
 
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
-    <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-      <h3 style="margin: 0 0 20px 0; color: #333;">👥 Recent Users</h3>
+    <div style="background: linear-gradient(135deg, #6f42c2, #188fb4); padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      <h3 style="margin: 0 0 20px 0; color: #000000;">👥 Recent Users</h3>
       <% @recent_users.each do |user| %>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
           <div>
@@ -32,54 +32,54 @@
               <span style="background: #6f42c1; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;">ADMIN</span>
             <% end %>
             <br>
-            <small style="color: #666;"><%= user.encrypted_email_display %></small>
+            <small style="color: #000000;"><%= user.encrypted_email_display %></small>
           </div>
-          <small style="color: #999;"><%= user.created_at.strftime("%m/%d") %></small>
+          <small style="color: #000000;"><%= user.created_at.strftime("%m/%d") %></small>
         </div>
       <% end %>
       <div style="margin-top: 15px;">
-        <a href="/admin/users" style="color: #007bff; text-decoration: none; font-weight: bold;">View All Users →</a>
+        <a href="/admin/users" style="color: #000000; text-decoration: none; font-weight: bold;">View All Users →</a>
       </div>
     </div>
 
-    <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-      <h3 style="margin: 0 0 20px 0; color: #333;">📖 Recent Books</h3>
+    <div style="background: linear-gradient(135deg, #6f42c2, #188fb4); padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      <h3 style="margin: 0 0 20px 0; color: #000000;">📖 Recent Books</h3>
       <% @recent_books.each do |book| %>
         <div style="padding: 10px 0; border-bottom: 1px solid #eee;">
           <div style="display: flex; justify-content: space-between; align-items: start;">
             <div>
               <strong><%= book.title %></strong><br>
-              <small style="color: #666;">by <%= book.author %></small><br>
-              <small style="color: #999;">Owner: <%= book.user.name %></small>
+              <small style="color: #000000;">by <%= book.author %></small><br>
+              <small style="color: #000000;">Owner: <%= book.user.name %></small>
             </div>
             <div style="text-align: right;">
               <span style="padding: 2px 6px; border-radius: 3px; font-size: 11px; <%= book.available? ? 'background: #d4edda; color: #155724;' : 'background: #f8d7da; color: #721c24;' %>">
                 <%= book.available? ? 'Available' : 'Unavailable' %>
               </span><br>
-              <small style="color: #999;"><%= book.created_at.strftime("%m/%d") %></small>
+              <small style="color: #000000;"><%= book.created_at.strftime("%m/%d") %></small>
             </div>
           </div>
         </div>
       <% end %>
       <div style="margin-top: 15px;">
-        <a href="/admin/books" style="color: #007bff; text-decoration: none; font-weight: bold;">View All Books →</a>
+        <a href="/admin/books" style="color: #000000; text-decoration: none; font-weight: bold;">View All Books →</a>
       </div>
     </div>
   </div>
 
   <div style="margin-bottom: 20px; text-align: center;">
-    <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; border-left: 4px solid #2196f3;">
-      <h5 style="margin: 0 0 5px 0; color: #1976d2;">👑 Admin Powers</h5>
-      <p style="margin: 0; color: #1976d2; font-size: 14px;">
+    <div style="background: linear-gradient(135deg, #6f42c2, #188fb4); padding: 15px; border-radius: 8px; border-left: 4px solid #2196f3;">
+      <h5 style="margin: 0 0 5px 0; color: #000000;">👑 Admin Powers</h5>
+      <p style="margin: 0; color: #000000; font-size: 14px;">
         You can edit/delete any book and delete any user (except yourself)
       </p>
     </div>
   </div>
 
   <div style="margin-bottom: 20px; text-align: center;">
-    <div style="background: #d4edda; padding: 15px; border-radius: 8px; border-left: 4px solid #28a745;">
-      <h5 style="margin: 0 0 5px 0; color: #155724;">🔒 Privacy Protection</h5>
-      <p style="margin: 0; color: #155724; font-size: 14px;">
+    <div style="background: linear-gradient(135deg, #6f42c2, #188fb4); padding: 15px; border-radius: 8px; border-left: 4px solid #28a745;">
+      <h5 style="margin: 0 0 5px 0; color: #000000;">🔒 Privacy Protection</h5>
+      <p style="margin: 0; color: #000000; font-size: 14px;">
         User emails are fully encrypted in the database. Even as admin, you can only see [ENCRYPTED] - no real email access.
       </p>
     </div>

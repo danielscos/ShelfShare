@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Shelf Share" %></title>
+    <title><%= content_for(:title) || "ShelfShare - Share Books with Your Community" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Share books with your community. List books you own and are willing to lend, and browse books available from other users.">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -22,47 +23,63 @@
   </head>
 
   <body>
-    <nav style="background: #333; padding: 15px; margin-bottom: 20px;">
-      <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <%= link_to "📚 ShelfShare", root_path, style: "color: white; text-decoration: none; font-size: 20px; font-weight: bold;" %>
-          <%= link_to "Browse Books", books_path, style: "color: white; text-decoration: none; margin-left: 20px;" %>
+    <nav>
+      <div class="nav-container">
+        <div class="nav-links">
+          <%= link_to root_path, class: "nav-brand" do %>
+            📚 ShelfShare
+          <% end %>
+          <%= link_to "Browse Books", books_path, class: "nav-link" %>
           <% if logged_in? %>
-            <%= link_to "Add Book", new_book_path, style: "color: white; text-decoration: none; margin-left: 20px;" %>
+            <%= link_to "Add Book", new_book_path, class: "nav-link" %>
             <% if admin? %>
-              <%= link_to "👑 Admin", admin_dashboard_path, style: "color: white; text-decoration: none; margin-left: 20px; background: #6f42c1; padding: 5px 10px; border-radius: 3px;" %>
+              <%= link_to admin_dashboard_path, class: "nav-link" do %>
+                👑 Admin
+              <% end %>
             <% end %>
           <% end %>
         </div>
-        <div>
+        
+        <div class="nav-links">
           <% if logged_in? %>
-            <span style="color: white; margin-right: 15px;">
+            <div class="nav-user-info">
               Welcome, <%= @current_user.name %>!
               <% if admin? %>
-                <span style="background: #6f42c1; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px;">👑 ADMIN</span>
+                <span class="admin-badge">👑 ADMIN</span>
               <% end %>
-            </span>
-            <%= link_to "My Profile", user_path(@current_user), style: "color: white; text-decoration: none; margin-right: 15px;" %>
-            <%= button_to "Logout", logout_path, method: :delete, style: "background: none; border: none; color: white; text-decoration: none; cursor: pointer; padding: 0; font-size: inherit;" %>
+            </div>
+            <%= link_to "My Profile", user_path(@current_user), class: "nav-link" %>
+            <%= button_to "Logout", logout_path, method: :delete, class: "logout-btn" %>
           <% else %>
-            <%= link_to "Login", login_path, style: "color: white; text-decoration: none; margin-right: 15px;" %>
-            <%= link_to "Sign Up", signup_path, style: "color: white; text-decoration: none;" %>
+            <%= link_to "Login", login_path, class: "nav-link" %>
+            <%= link_to "Sign Up", signup_path, class: "nav-link" %>
           <% end %>
         </div>
       </div>
     </nav>
 
     <% if notice %>
-      <div style="background: #d4edda; color: #155724; padding: 10px; margin: 0 20px 20px 20px; border-radius: 5px; border: 1px solid #c3e6cb;">
+      <div class="alert alert-success">
         <%= notice %>
       </div>
     <% end %>
+    
     <% if alert %>
-      <div style="background: #f8d7da; color: #721c24; padding: 10px; margin: 0 20px 20px 20px; border-radius: 5px; border: 1px solid #f5c6cb;">
+      <div class="alert alert-danger">
         <%= alert %>
       </div>
     <% end %>
 
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer style="background: var(--dark-gray); color: white; padding: 2rem 0; margin-top: 4rem;">
+      <div class="container text-center">
+        <p style="margin: 0; color: rgba(255, 255, 255, 0.8);">
+          © <%= Date.current.year %> ShelfShare. Built with ❤️ for book lovers everywhere.
+        </p>
+      </div>
+    </footer>
   </body>
 </html>

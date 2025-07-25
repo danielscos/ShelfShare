@@ -1,10 +1,66 @@
-<div style="text-align: center; padding: 50px;">
-  <h1 style="color: #333; font-size: 3em;">📚 ShelfShare</h1>
-  <p style="font-size: 1.2em; color: #666;">Share books with your community</p>
+<div class="hero">
+  <div class="container">
+    <h1>📚 ShelfShare</h1>
+    <p>Share books with your community and discover amazing reads from neighbors around you</p>
 
-  <div style="margin-top: 40px;">
-    <h2>Welcome to ShelfShare!</h2>
-    <p>List books you own and are willing to lend, and browse books available from other users in your community.</p>
+    <div class="flex justify-center gap-3 mt-4">
+      <%= link_to "Browse Books", books_path, class: "btn btn-hero-browse btn-lg" %>
+      <% if logged_in? %>
+        <%= link_to "Add Your Book", new_book_path, class: "btn btn-primary btn-lg" %>
+      <% else %>
+        <%= link_to "Get Started", signup_path, class: "btn btn-primary btn-lg" %>
+      <% end %>
+    </div>
   </div>
 </div>
-z2
+
+<div class="container">
+  <div class="grid grid-cols-3 mt-5">
+    <div class="card">
+      <div class="card-body text-center">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">📖</div>
+        <h3 class="card-title">Share Your Books</h3>
+        <p class="card-text">List books you own and are willing to lend to others in your community.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body text-center">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+        <h3 class="card-title">Discover New Reads</h3>
+        <p class="card-text">Browse through books available from your neighbors and find your next great read.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body text-center">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🤝</div>
+        <h3 class="card-title">Build Community</h3>
+        <p class="card-text">Connect with fellow book lovers and build stronger relationships through sharing.</p>
+      </div>
+    </div>
+  </div>
+
+  <% if logged_in? %>
+    <div class="main-content mt-5">
+      <h2>Welcome back, <%= @current_user.name %>! 👋</h2>
+      <p>Ready to share more books or find something new to read?</p>
+
+      <div class="flex gap-3 mt-3">
+        <%= link_to "My Books", books_path, class: "btn btn-secondary" %>
+        <%= link_to "Add New Book", new_book_path, class: "btn btn-success" %>
+        <%= link_to "My Profile", user_path(@current_user), class: "btn btn-outline" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="main-content mt-5 text-center">
+      <h2>Join Our Book-Sharing Community</h2>
+      <p>Sign up today and start sharing books with your neighbors. It's free and easy to get started!</p>
+
+      <div class="flex justify-center gap-3 mt-3">
+        <%= link_to "Sign Up Now", signup_path, class: "btn btn-primary btn-lg" %>
+        <%= link_to "Already have an account? Login", login_path, class: "btn btn-outline" %>
+      </div>
+    </div>
+  <% end %>
+</div>

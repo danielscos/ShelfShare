@@ -6,8 +6,7 @@ class Book < ApplicationRecord
   validates :author, presence: { message: "Author is required." },
     length: { minimum: 2, maximum: 50, message: "Author must be 2-50 characters." }
   validates :condition, presence: { message: "Condition is required." },
-    inclusion: { in: [ "New", "Good", "Fair", "Poor" ], message: "Condition must be one of New, Good, Fair, or Poor." },
-      message: "Condition must be one of New, Good, Fair, or Poor."
+    inclusion: { in: [ "New", "Good", "Fair", "Poor" ], message: "Condition must be one of New, Good, Fair, or Poor." }
 
   validates :description, length: { maximum: 500, message: "Description cannot exceed 500 characters" }
 

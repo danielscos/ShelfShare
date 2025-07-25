@@ -1,46 +1,123 @@
-<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-    <h1 style="color: #333; margin: 0;">📚 Available Books</h1>
-    <a href="/books/new" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Add New Book</a>
+<div class="container">
+  <div class="flex justify-between items-center mb-4">
+    <div>
+      <h1 class="mb-2">📚 Available Books</h1>
+      <p class="text-secondary mb-0">Discover amazing books shared by your community</p>
+    </div>
+    <% if logged_in? %>
+      <%= link_to new_book_path, class: "btn btn-primary" do %>
+        <span style="margin-right: 0.5rem;">➕</span>
+        Add New Book
+      <% end %>
+    <% end %>
   </div>
 
   <% if @books.any? %>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+    <div class="grid grid-auto-fit">
       <% @books.each do |book| %>
-        <div style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h3 style="margin: 0 0 10px 0; color: #333;">
-            <a href="/books/<%= book.id %>" style="text-decoration: none; color: #007bff;"><%= book.title %></a>
-          </h3>
-          <p style="margin: 5px 0; color: #666;"><strong>Author:</strong> <%= book.author %></p>
-          <p style="margin: 5px 0; color: #666;"><strong>Condition:</strong> <%= book.condition %></p>
-          <% if book.user %>
-            <p style="margin: 5px 0; color: #666;"><strong>Owner:</strong> <%= book.user.name %></p>
-            <p style="margin: 5px 0; color: #666;"><strong>Location:</strong> <%= book.user.location %></p>
-          <% end %>
-          <p style="margin: 10px 0 0 0;">
-            <span style="padding: 4px 8px; border-radius: 4px; font-size: 12px; <%= book.available? ? 'background: #d4edda; color: #155724;' : 'background: #f8d7da; color: #721c24;' %>">
-              <%= book.available? ? 'Available' : 'Not Available' %>
-            </span>
-          </p>
-          <div style="margin-top: 15px; display: flex; gap: 5px;">
-            <a href="/books/<%= book.id %>" style="background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">View</a>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <%= link_to book.title, book_path(book), style: "text-decoration: none; color: var(--primary-color);" %>
+            </h3>
+            <p class="card-subtitle">by <%= book.author %></p>
+          </div>
+          
+          <div class="card-body">
+            <% if book.description.present? %>
+              <p class="card-text">
+                <%= truncate(book.description, length: 120) %>
+              </p>
+            <% end %>
+            
+            <div class="mb-3">
+              <div class="flex items-center gap-2 mb-2">
+                <strong>Condition:</strong>
+                <% case book.condition %>
+                <% when "New" %>
+                  <span class="badge badge-success">✨ <%= book.condition %></span>
+                <% when "Good" %>
+                  <span class="badge badge-info">👍 <%= book.condition %></span>
+                <% when "Fair" %>
+                  <span class="badge badge-warning">👌 <%= book.condition %></span>
+                <% when "Poor" %>
+                  <span class="badge badge-danger">📖 <%= book.condition %></span>
+                <% end %>
+              </div>
+              
+              <div class="flex items-center gap-2 mb-2">
+                <strong>Status:</strong>
+                <% if book.available? %>
+                  <span class="badge badge-success">✅ Available</span>
+                <% else %>
+                  <span class="badge badge-danger">❌ Not Available</span>
+                <% end %>
+              </div>
+              
+              <% if book.user %>
+                <div class="flex items-center gap-2 mb-1">
+                  <strong>Owner:</strong>
+                  <span class="text-secondary">👤 <%= book.user.name %></span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <strong>Location:</strong>
+                  <span class="text-secondary">📍 <%= book.user.location %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          
+          <div class="card-footer">
+            <%= link_to book_path(book), class: "btn btn-primary btn-sm" do %>
+              👁️ View Details
+            <% end %>
+            
             <% if logged_in? && (@current_user == book.user || admin?) %>
-              <a href="/books/<%= book.id %>/edit" style="background: #ffc107; color: #212529; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">Edit</a>
-              <%= button_to "Delete", book_path(book), method: :delete, data: { confirm: "Are you sure?" }, style: "background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 3px; font-size: 12px; cursor: pointer;" %>
+              <%= link_to edit_book_path(book), class: "btn btn-warning btn-sm" do %>
+                ✏️ Edit
+              <% end %>
+              
+              <%= button_to book_path(book), method: :delete, 
+                  data: { confirm: "Are you sure you want to delete '#{book.title}'?" }, 
+                  class: "btn btn-danger btn-sm" do %>
+                🗑️ Delete
+              <% end %>
             <% end %>
           </div>
         </div>
       <% end %>
     </div>
+    
+    <div class="text-center mt-5">
+      <p class="text-secondary">
+        Showing <%= @books.count %> book<%= @books.count == 1 ? '' : 's' %> available for sharing
+      </p>
+    </div>
   <% else %>
-    <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 8px;">
-      <h3 style="color: #666; margin: 0 0 15px 0;">No books available yet</h3>
-      <p style="color: #888; margin: 0 0 20px 0;">Be the first to share a book with your community!</p>
-      <a href="/books/new" style="background: #28a745; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px;">Add the First Book</a>
+    <div class="empty-state">
+      <div class="empty-state-icon">📚</div>
+      <h3>No books available yet</h3>
+      <p>Be the first to share a book with your community and help build our library!</p>
+      <% if logged_in? %>
+        <%= link_to new_book_path, class: "btn btn-primary btn-lg" do %>
+          📖 Add the First Book
+        <% end %>
+      <% else %>
+        <div class="flex justify-center gap-3">
+          <%= link_to signup_path, class: "btn btn-primary" do %>
+            🚀 Sign Up to Add Books
+          <% end %>
+          <%= link_to login_path, class: "btn btn-outline" do %>
+            🔑 Login
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 
-  <div style="margin-top: 30px; text-align: center;">
-    <a href="/" style="color: #007bff; text-decoration: none;">← Back to Home</a>
+  <div class="text-center mt-5">
+    <%= link_to root_path, class: "btn btn-outline" do %>
+      ← Back to Home
+    <% end %>
   </div>
 </div>

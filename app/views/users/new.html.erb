@@ -1,50 +1,128 @@
-<div style="max-width: 500px; margin: 0 auto; padding: 20px;">
-  <h1 style="color: #333; margin-bottom: 30px;">👤 Join ShelfShare</h1>
+<div class="container">
+  <div class="hero" style="padding: 3rem 0;">
+    <div class="container">
+      <h1 style="font-size: 2.5rem;">🚀 Join ShelfShare</h1>
+      <p style="font-size: 1.1rem;">Create your account and start sharing books with your community</p>
+    </div>
+  </div>
 
-  <%= form_with model: @user, local: true, html: { style: "background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" } do |form| %>
-    <% if @user.errors.any? %>
-      <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
-        <h4 style="margin: 0 0 10px 0;"><%= pluralize(@user.errors.count, "error") %> prohibited this account from being created:</h4>
-        <ul style="margin: 0; padding-left: 20px;">
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+  <div class="main-content" style="max-width: 500px; margin: -2rem auto 0 auto;">
+    <%= form_with model: @user, local: true, html: { class: "signup-form" } do |form| %>
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger mb-4">
+          <h4 class="mb-3"><%= pluralize(@user.errors.count, "error") %> prevented your account from being created:</h4>
+          <ul class="mb-0" style="padding-left: 1.5rem;">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :name, "👤 Full Name", class: "form-label" %>
+        <%= form.text_field :name, 
+            required: true,
+            class: "form-control #{'is-invalid' if @user.errors[:name].any?}",
+            placeholder: "Enter your full name" %>
+        <% if @user.errors[:name].any? %>
+          <div class="form-error">
+            <%= @user.errors[:name].first %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :email, "📧 Email Address", class: "form-label" %>
+        <%= form.email_field :email, 
+            required: true,
+            class: "form-control #{'is-invalid' if @user.errors[:email].any?}",
+            placeholder: "Enter your email address" %>
+        <% if @user.errors[:email].any? %>
+          <div class="form-error">
+            <%= @user.errors[:email].first %>
+          </div>
+        <% end %>
+        <small class="text-secondary">We'll keep your email private and secure</small>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :location, "📍 Location", class: "form-label" %>
+        <%= form.text_field :location, 
+            required: true,
+            class: "form-control #{'is-invalid' if @user.errors[:location].any?}",
+            placeholder: "e.g., New York, NY or Downtown Austin" %>
+        <% if @user.errors[:location].any? %>
+          <div class="form-error">
+            <%= @user.errors[:location].first %>
+          </div>
+        <% end %>
+        <small class="text-secondary">This helps others find books near them</small>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :password, "🔒 Password", class: "form-label" %>
+        <%= form.password_field :password, 
+            required: true,
+            class: "form-control #{'is-invalid' if @user.errors[:password].any?}",
+            placeholder: "Create a secure password" %>
+        <% if @user.errors[:password].any? %>
+          <div class="form-error">
+            <%= @user.errors[:password].first %>
+          </div>
+        <% end %>
+        <small class="text-secondary">Choose a strong password with at least 6 characters</small>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :password_confirmation, "🔒 Confirm Password", class: "form-label" %>
+        <%= form.password_field :password_confirmation, 
+            required: true,
+            class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}",
+            placeholder: "Confirm your password" %>
+        <% if @user.errors[:password_confirmation].any? %>
+          <div class="form-error">
+            <%= @user.errors[:password_confirmation].first %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form-group mt-4">
+        <div style="background: var(--light-gray); padding: 1rem; border-radius: var(--border-radius); border: 1px solid var(--medium-gray);">
+          <h4 style="margin-bottom: 0.5rem; font-size: 1rem; color: var(--primary-color);">🎉 What you'll get:</h4>
+          <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-secondary);">
+            <li>Share your books with neighbors</li>
+            <li>Discover amazing books to borrow</li>
+            <li>Connect with fellow book lovers</li>
+            <li>Build a stronger community</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="form-group mt-4">
+        <%= form.submit "🚀 Create My Account", class: "btn btn-primary btn-lg" %>
+      </div>
+
+      <div class="text-center mt-4">
+        <div style="background: var(--light-gray); padding: 1rem; border-radius: var(--border-radius);">
+          <p class="mb-2 text-secondary">Already have an account?</p>
+          <%= link_to login_path, class: "btn btn-outline" do %>
+            🔑 Login Here
           <% end %>
-        </ul>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <small class="text-secondary">
+          By creating an account, you agree to share books responsibly and treat borrowed items with care.
+        </small>
       </div>
     <% end %>
+  </div>
 
-    <div style="margin-bottom: 20px;">
-      <%= form.label :name, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
-      <%= form.text_field :name, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <%= form.label :email, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
-      <%= form.email_field :email, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <%= form.label :location, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
-      <%= form.text_field :location, required: true, placeholder: "e.g., New York, NY", style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <%= form.label :password, style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
-      <%= form.password_field :password, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
-    </div>
-
-    <div style="margin-bottom: 30px;">
-      <%= form.label :password_confirmation, "Confirm Password", style: "display: block; margin-bottom: 5px; font-weight: bold; color: #333;" %>
-      <%= form.password_field :password_confirmation, required: true, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" %>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <%= form.submit "Create Account", style: "background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; width: 100%;" %>
-    </div>
-
-    <div style="text-align: center;">
-      <p style="margin: 0; color: #666;">Already have an account?</p>
-      <a href="/login" style="color: #007bff; text-decoration: none; font-weight: bold;">Login here</a>
-    </div>
-  <% end %>
+  <div class="text-center mt-5">
+    <%= link_to root_path, class: "btn btn-secondary" do %>
+      ← Back to Home
+    <% end %>
+  </div>
 </div>
