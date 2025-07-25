@@ -1,0 +1,23 @@
+databases:
+  - name: shelfshare-db
+    databaseName: shelfshare_production
+    user: shelfshare
+
+services:
+  - type: web
+    name: shelfshare
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: shelfshare-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production
+    healthCheckPath: /up
