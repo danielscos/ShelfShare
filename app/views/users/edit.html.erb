@@ -43,16 +43,7 @@
       </div>
     </div>
 
-    <% if admin? && @current_user != @user %>
-      <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #ffeaa7;">
-        <h4 style="margin: 0 0 10px 0; color: #856404;">👑 Admin Controls</h4>
-        <label style="display: flex; align-items: center; cursor: pointer;">
-          <%= form.check_box :admin, { style: "margin-right: 8px;" } %>
-          <span style="font-weight: bold; color: #856404;">Grant Admin Privileges</span>
-        </label>
-        <p style="margin: 5px 0 0 0; color: #856404; font-size: 12px;">⚠️ Use with caution - this gives full system access</p>
-      </div>
-    <% end %>
+
 
     <div style="display: flex; gap: 10px; margin-bottom: 20px;">
       <%= form.submit "Update Profile", style: "background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;" %>

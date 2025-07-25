@@ -67,7 +67,7 @@
                     <a href="/books/<%= book.id %>/edit" style="background: #ffc107; color: #212529; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 12px;">Edit</a>
                   </div>
                   <div>
-                    <%= button_to "🗑️ Delete", book_path(book), method: :delete, data: { confirm: "⚠️ ADMIN DELETE: Are you sure you want to permanently delete '#{book.title}' by #{book.author}?" }, style: "background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 3px; font-size: 12px; cursor: pointer; width: 100%;" %>
+                    <%= button_to "🗑️ Delete", book_path(book), method: :delete, data: { confirm: "Are you sure you want to delete '#{book.title}'?" }, style: "background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 3px; font-size: 12px; cursor: pointer; width: 100%;" %>
                   </div>
                 </div>
               </td>
@@ -117,13 +117,5 @@
     </div>
   </div>
 
-  <div style="margin-top: 20px; text-align: center;">
-    <div style="background: #f8d7da; padding: 15px; border-radius: 8px; border-left: 4px solid #dc3545;">
-      <h5 style="margin: 0 0 5px 0; color: #721c24;">⚠️ Admin Warning</h5>
-      <p style="margin: 0; color: #721c24; font-size: 14px;">
-        As an admin, you have the power to edit and delete any book. Use these privileges responsibly.
-        Deleted books cannot be recovered.
-      </p>
-    </div>
-  </div>
+
 </div>

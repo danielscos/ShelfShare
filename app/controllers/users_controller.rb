@@ -55,11 +55,6 @@ class UsersController < ApplicationController
       permitted_params += [ :password, :password_confirmation ]
     end
 
-    # Allow admin field only for admins
-    if admin?
-      permitted_params += [ :admin ]
-    end
-
     params.require(:user).permit(permitted_params)
   end
 end
